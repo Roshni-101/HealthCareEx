@@ -70,5 +70,14 @@ public class SpecializationController {
 		model.addAttribute("specialization",spec);
 		return "SpecializationEdit";
 	}
-	
+	/***
+	 * update Form data and redirect to all
+	 */
+	@PostMapping("/update")
+	public String updateData(@ModelAttribute Specialization specialization,
+			RedirectAttributes attributes) {
+		service.updateSpecialization(specialization);
+		attributes.addAttribute("message", "Reocord ("+specialization.getId()+") is updated");
+		return"redirect:all";
+	}
 }
