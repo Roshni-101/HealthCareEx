@@ -61,4 +61,14 @@ public class SpecializationController {
 		
 		return "redirect:all";
 	}
+	/**
+	 * Fetch data into edit page
+	 */
+	@GetMapping("/edit")
+	public String showEditPage(@RequestParam Long id,Model model) {
+		Specialization spec = service.getOneSpecialization(id);
+		model.addAttribute("specialization",spec);
+		return "SpecializationEdit";
+	}
+	
 }
