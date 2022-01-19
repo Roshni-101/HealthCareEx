@@ -41,8 +41,8 @@
 
 				</table>
 			</div>
-			<div class="card-footer">
-				<span>message</span>
+			<div class="card-footer bg-white text-success" th:if="${message!=null}">
+				<span th:text="${message}">message</span>
 			</div>
 
 		</div>
