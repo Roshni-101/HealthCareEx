@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.ashokit.entity.Specialization;
@@ -51,7 +52,7 @@ public class SpecializationController {
 		return "SpecializationData";
 	}
 	/**
-	 * Delete By ID
+	 *4 Delete By ID
 	 */
 	@GetMapping("/delete")
 	public String deleteData(@RequestParam Long id,RedirectAttributes attributes) {
@@ -62,7 +63,7 @@ public class SpecializationController {
 		return "redirect:all";
 	}
 	/**
-	 * Fetch data into edit page
+	 *5 Fetch data into edit page
 	 */
 	@GetMapping("/edit")
 	public String showEditPage(@RequestParam Long id,Model model) {
@@ -71,7 +72,7 @@ public class SpecializationController {
 		return "SpecializationEdit";
 	}
 	/***
-	 * update Form data and redirect to all
+	 * 6 update Form data and redirect to all
 	 */
 	@PostMapping("/update")
 	public String updateData(@ModelAttribute Specialization specialization,
@@ -79,5 +80,22 @@ public class SpecializationController {
 		service.updateSpecialization(specialization);
 		attributes.addAttribute("message", "Reocord ("+specialization.getId()+") is updated");
 		return"redirect:all";
+	}
+	/**
+	 * 7 Read code check with service
+	 * return message back to UI
+	 */
+	@GetMapping("/checkCode")
+	@ResponseBody
+	public String validateSpecCode(
+			@RequestParam String code
+			) 
+	{
+		String message = "";
+		if(service.isSpecCodeExist(code)) {
+			message = code + ", already exist";
+		} 
+		
+		return message; //this is not viewName(it is message)
 	}
 }
