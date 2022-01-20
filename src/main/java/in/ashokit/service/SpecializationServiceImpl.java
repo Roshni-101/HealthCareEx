@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.ashokit.entity.Specialization;
+import in.ashokit.exception.SpecializationNotFoundException;
 import in.ashokit.repo.SpecializationRepo;
 @Service
 public class SpecializationServiceImpl implements ISpecializationService {
@@ -27,8 +28,8 @@ public class SpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public void removeSpecialization(Long id) {
-		repo.deleteById(id);
-		
+	//	repo.deleteById(id);
+		repo.delete(getOneSpecialization(id));
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		if(optional.isPresent()) {
 			return optional.get();
 		}else{
-			return null;
+			throw new SpecializationNotFoundException(id+"Not Found");
 		}
 	}
 
